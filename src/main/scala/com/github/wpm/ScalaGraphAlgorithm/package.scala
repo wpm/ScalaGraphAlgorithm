@@ -13,22 +13,22 @@ package object ScalaGraphAlgorithm {
      */
     def connectedComponents: Set[Set[N]] = {
       def connectedComponent(n: g.NodeT) = {
-        var component = Set[N]()
+        var component = Set[g.NodeT]()
 
         def visit(n: g.NodeT) = {
-          component += n.asInstanceOf[N]
+          component += n
           Continue
         }
         n.traverseNodes()(visit)
         component
       }
 
-      ((Set[N](), Set[Set[N]]()) /: g.nodes) {
+      ((Set[g.NodeT](), Set[Set[g.NodeT]]()) /: g.nodes) {
         case ((visited, ccs), n) =>
-          if (visited.contains(n.asInstanceOf[N])) // Skip a node if it is already part of a component.
+          if (visited.contains(n)) // Skip a node if it is already part of a component.
             (visited, ccs)
           else (visited ++ connectedComponent(n), ccs + connectedComponent(n))
-      }._2
+      }._2.map(_.map(_.asInstanceOf[N]))
     }
   }
 
