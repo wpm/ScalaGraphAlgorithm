@@ -6,7 +6,9 @@ version := "1.0.0"
 
 scalaVersion := "2.10.1"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-language:implicitConversions", "-language:higherKinds")
+scalacOptions ++= Seq(
+    "-unchecked", "-deprecation",
+    "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 
 initialCommands in console := "import com.github.wpm.ScalaGraphAlgorithm._"
 
