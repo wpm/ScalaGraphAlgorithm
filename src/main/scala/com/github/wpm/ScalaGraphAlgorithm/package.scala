@@ -6,12 +6,12 @@ import scalax.collection.GraphTraversal.VisitorReturn._
 
 package object ScalaGraphAlgorithm {
 
-  final class RichGraph[N, E[X] <: EdgeLikeIn[X]](g: Graph[N, E]) {
+  final class RichGraph[N, E[X] <: EdgeLikeIn[X]](val g: Graph[N, E]) {
     /**
      * The connected components of this graph
      * @return set of sets of nodes in connected components
      */
-    def connectedComponents: Set[Set[N]] = {
+    def connectedComponents: Set[Set[g.NodeT]] = {
       def connectedComponent(n: g.NodeT) = {
         var component = Set[g.NodeT]()
 
@@ -28,7 +28,7 @@ package object ScalaGraphAlgorithm {
           if (visited.contains(n)) // Skip a node if it is already part of a component.
             (visited, ccs)
           else (visited ++ connectedComponent(n), ccs + connectedComponent(n))
-      }._2.map(_.map(_.asInstanceOf[N]))
+      }._2
     }
   }
 
