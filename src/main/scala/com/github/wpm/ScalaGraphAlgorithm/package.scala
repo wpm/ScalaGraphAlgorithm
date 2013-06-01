@@ -4,11 +4,6 @@ import scalax.collection.Graph
 import scalax.collection.GraphPredef._
 import scalax.collection.GraphTraversal.VisitorReturn._
 
-// The E[X] type parameter produces a warning unless we import scala.language.higherKinds.
-
-import scala.language.higherKinds
-
-
 package object ScalaGraphAlgorithm {
 
   final class RichGraph[N, E[X] <: EdgeLikeIn[X]](g: Graph[N, E]) {
