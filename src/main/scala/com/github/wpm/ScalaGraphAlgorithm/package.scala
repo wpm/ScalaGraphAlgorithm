@@ -1,12 +1,12 @@
 package com.github.wpm
 
 import scalax.collection.Graph
-import scalax.collection.GraphPredef._
 import scalax.collection.GraphTraversal.VisitorReturn._
+import scalax.collection.GraphEdge.UnDiEdge
 
 package object ScalaGraphAlgorithm {
 
-  final class RichGraph[N, E[X] <: EdgeLikeIn[X]](val g: Graph[N, E]) {
+  final class RichUndirectedGraph[N, E[X] >: UnDiEdge[X] <: UnDiEdge[X]](val g: Graph[N, E]) {
     /**
      * The connected components of this graph
      * @return set of sets of nodes in connected components
@@ -32,5 +32,6 @@ package object ScalaGraphAlgorithm {
     }
   }
 
-  implicit def graphToRichGraph[N, E[X] <: EdgeLikeIn[X]](g: Graph[N, E]) = new RichGraph[N, E](g)
+  implicit def graphToRichGraph[N, E[X] >: UnDiEdge[X] <: UnDiEdge[X]](g: Graph[N, E]) =
+    new RichUndirectedGraph[N, E](g)
 }
